@@ -1,6 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import (CreateView,
+                                  DetailView,
+                                  UpdateView,
+                                  DayArchiveView)
 
 from qanda.forms import (QuestionForm,
                          AnswerForm, 
@@ -95,3 +98,10 @@ class UpdateAnswerAcceptance(LoginRequiredMixin, UpdateView):
             redirect_to=self.object.question.get_absolute_url())
 
     
+class DailyQuestionList(DayArchiveView):
+    queryset = Question.objects.all()
+    date_field = 'created'
+    month_format = '%m'
+    allow_empty = True
+
+
