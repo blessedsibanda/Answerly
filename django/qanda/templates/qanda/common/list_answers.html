@@ -20,7 +20,7 @@
                             Reject
                         </button>
                     </form>
-                {% elif %}
+                {% elif accept_form %}
                     <form 
                         action="{% url 'qanda:update_answer_acceptance' pk=answer.id %}"
                         method="post">

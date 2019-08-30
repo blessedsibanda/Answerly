@@ -6,7 +6,7 @@ from qanda.models import Question, Answer
 
 class QuestionForm(forms.ModelForm):
     user = forms.ModelChoiceField(
-        queryset=get_user_model.objects.all(),
+        queryset=get_user_model().objects.all(),
         widget=forms.HiddenInput,
         disabled=True,
     )
@@ -16,12 +16,12 @@ class QuestionForm(forms.ModelForm):
 
 
 class AnswerForm(forms.ModelForm):
-    user = form.ModelChoiceField(
+    user = forms.ModelChoiceField(
         widget=forms.HiddenInput,
         queryset=get_user_model().objects.all(),
         disabled=True,
     )
-    question = form.ModelChoiceField(
+    question = forms.ModelChoiceField(
         widget=forms.HiddenInput,
         queryset=Question.objects.all(),
         disabled=True,

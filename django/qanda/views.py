@@ -11,7 +11,7 @@ from django.utils import timezone
 from qanda.forms import (QuestionForm,
                          AnswerForm, 
                          AnswerAcceptanceForm)
-from qanda.models import Question
+from qanda.models import Question, Answer
 
 
 class AskQuestionView(LoginRequiredMixin, CreateView):
@@ -20,15 +20,17 @@ class AskQuestionView(LoginRequiredMixin, CreateView):
 
     def get_initial(self):
         return {
-            'user': self.request.user 
+            'user': self.request.user.id
         }
 
     def form_valid(self, form):
         action = self.request.POST.get('action')
         if action == 'SAVE':
             # save and redirect as usual
+            print('save')
             return super().form_valid(form)
         elif action == 'PREVIEW':
+            print('preview')
             preview = Question(
                 question=form.cleaned_data['question'],
                 title=form.cleaned_data['title'],)
@@ -112,7 +114,7 @@ class TodayQuestionList(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         today = timezone.now()
         return reverse(
-            'question:daily_questions',
+            'qanda:daily_questions',
             kwargs={
                 'day': today.day,
                 'month': today.month,
