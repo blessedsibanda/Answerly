@@ -6,7 +6,7 @@ from django.views.generic import (CreateView,
                                   DetailView,
                                   UpdateView,
                                   DayArchiveView,
-                                  RedirectView),
+                                  RedirectView,)
                         
 from django.utils import timezone
 
